@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NutriPulse | Results Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "outline": "#717783",
+                "on-surface": "#071e27",
+                "surface-container-low": "#e6f6ff",
+                "surface-container-highest": "#cfe6f2",
+                "secondary": "#006e1c",
+                "error-container": "#ffdad6",
+                "error": "#ba1a1a",
+                "on-secondary-fixed": "#002204",
+                "background": "#f3faff",
+                "surface-tint": "#005faf",
+                "surface-variant": "#cfe6f2",
+                "on-background": "#071e27",
+                "primary-fixed": "#d4e3ff",
+                "on-primary-fixed": "#001c3a",
+                "on-tertiary-container": "#fdfdff",
+                "inverse-on-surface": "#dff4ff",
+                "surface-container": "#dbf1fe",
+                "surface-container-high": "#d5ecf8",
+                "on-primary-fixed-variant": "#004786",
+                "tertiary-container": "#697781",
+                "on-primary-container": "#fffdff",
+                "on-secondary-container": "#00731e",
+                "tertiary": "#505e68",
+                "secondary-fixed-dim": "#78dc77",
+                "surface-dim": "#c7dde9",
+                "on-tertiary-fixed": "#001d31",
+                "primary-container": "#1976d2",
+                "on-error-container": "#93000a",
+                "primary-fixed-dim": "#a5c8ff",
+                "on-tertiary-fixed-variant": "#3b4951",
+                "secondary-container": "#91f78e",
+                "surface": "#f3faff",
+                "on-tertiary": "#ffffff",
+                "primary": "#005dac",
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#c1c6d4",
+                "on-secondary": "#ffffff",
+                "on-error": "#ffffff",
+                "on-surface-variant": "#414752",
+                "tertiary-fixed": "#d6e5ef",
+                "surface-bright": "#f3faff",
+                "on-secondary-fixed-variant": "#005313",
+                "inverse-primary": "#a5c8ff",
+                "on-primary": "#ffffff",
+                "inverse-surface": "#1e333c",
+                "tertiary-fixed-dim": "#bac9d3",
+                "secondary-fixed": "#94f990"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "lg": "48px",
+                "gutter": "24px",
+                "xs": "4px",
+                "sm": "12px",
+                "base": "8px",
+                "xl": "64px",
+                "md": "24px",
+                "container-max": "1280px"
+              },
+              "fontFamily": {
+                "h3": ["Inter"],
+                "h1": ["Inter"],
+                "body-md": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "h2": ["Inter"],
+                "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                "h3": ["24px", { "lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600" }],
+                "h1": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400" }],
+                "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                "h2": ["32px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #f3faff; font-family: 'Inter', sans-serif; }
+        .clinical-shadow { shadow-[0px_4px_20px_rgba(25,118,210,0.04)]; }
+        .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid #E3F2FD; }
+        .gauge-track { stroke: #dbf1fe; }
+        .gauge-fill { stroke: #005dac; stroke-linecap: round; transition: stroke-dasharray 1s ease-in-out; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-blue-50 shadow-[0px_4px_20px_rgba(25,118,210,0.04)] h-16">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-6 h-full">
+<div class="text-2xl font-black tracking-tighter text-blue-700">NutriPulse</div>
+<div class="hidden md:flex gap-base items-center font-sans antialiased text-sm font-medium">
+<a class="px-sm py-xs text-slate-600 hover:text-blue-600 transition-colors" href="#">Home</a>
+<a class="px-sm py-xs text-slate-600 hover:text-blue-600 transition-colors" href="#">Assessment</a>
+<a class="px-sm py-xs text-blue-700 border-b-2 border-blue-700 pb-1" href="#">Dashboard</a>
+<a class="px-sm py-xs text-slate-600 hover:text-blue-600 transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="hidden lg:block text-slate-600 hover:text-blue-700 text-sm font-medium px-sm transition-all active:scale-95">Sign In</button>
+<button class="bg-primary-container text-on-primary-container px-md py-sm rounded-xl font-bold text-sm shadow-md active:scale-95 duration-200">Start Risk Assessment</button>
+</div>
+</div>
+</nav>
+<main class="flex-grow pt-32 pb-xl px-gutter max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<header class="mb-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md">
+<div>
+<span class="inline-flex items-center px-sm py-xs bg-surface-container rounded-full text-primary font-label-sm uppercase tracking-widest mb-base">Clinical Report</span>
+<h1 class="font-h1 text-h1 text-on-surface">NutriPulse: AI for Early Malnutrition Detection</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-xs">Comprehensive nutritional risk assessment for Alex Johnson</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-highest rounded-xl text-primary font-label-md hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-md">download</span>
+                        Export PDF
+                    </button>
+<button class="flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded-xl font-label-md hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-md">share</span>
+                        Share with Doctor
+                    </button>
+</div>
+</div>
+</header>
+<!-- Bento Grid Dashboard -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md">
+<!-- Left Column: Primary Risk Score (Progress Dial) -->
+<div class="md:col-span-5 flex flex-col gap-md">
+<section class="bg-white rounded-[24px] p-md border border-blue-50 shadow-[0px_4px_20px_rgba(25,118,210,0.04)] flex flex-col items-center text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-md">
+<span class="material-symbols-outlined text-outline cursor-help" title="Based on blood markers and dietary logs">info</span>
+</div>
+<h3 class="font-h3 text-h3 text-on-surface mb-md">Nutrition Risk Score</h3>
+<!-- SVG Gauge -->
+<div class="relative flex items-center justify-center w-64 h-64 mb-md">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="gauge-track" cx="128" cy="128" fill="transparent" r="110" stroke-width="18"></circle>
+<circle class="gauge-fill" cx="128" cy="128" fill="transparent" r="110" stroke-dasharray="691.15" stroke-dashoffset="241.9" stroke-width="18"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-h1 text-[56px] leading-none text-primary">65%</span>
+<span class="font-label-md text-on-surface-variant mt-xs">System Score</span>
+</div>
+</div>
+<div class="inline-flex items-center px-md py-sm bg-error-container rounded-xl gap-sm mb-sm">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-md text-on-error-container font-bold">MODERATE RISK</span>
+</div>
+<p class="font-body-md text-on-surface-variant px-md">Your score indicates significant nutritional gaps in micronutrients required for optimal metabolic function.</p>
+</section>
+<!-- Status Summary Chips -->
+<div class="grid grid-cols-3 gap-sm">
+<div class="bg-white p-sm rounded-xl border border-blue-50 shadow-sm flex flex-col items-center">
+<span class="material-symbols-outlined text-secondary mb-xs">check_circle</span>
+<span class="font-label-sm text-outline">Metabolism</span>
+<span class="font-label-md text-on-surface">Optimal</span>
+</div>
+<div class="bg-white p-sm rounded-xl border border-blue-50 shadow-sm flex flex-col items-center border-l-4 border-l-error">
+<span class="material-symbols-outlined text-error mb-xs">heart_broken</span>
+<span class="font-label-sm text-outline">Immunity</span>
+<span class="font-label-md text-on-surface">At Risk</span>
+</div>
+<div class="bg-white p-sm rounded-xl border border-blue-50 shadow-sm flex flex-col items-center">
+<span class="material-symbols-outlined text-primary mb-xs">bolt</span>
+<span class="font-label-sm text-outline">Energy</span>
+<span class="font-label-md text-on-surface">Stable</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Specific Deficiencies & Recommendations -->
+<div class="md:col-span-7 flex flex-col gap-md">
+<!-- Deficiency Cards Section -->
+<section class="bg-white rounded-[24px] p-md border border-blue-50 shadow-[0px_4px_20px_rgba(25,118,210,0.04)]">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-h3 text-h3 text-on-surface">Nutritional Gaps</h3>
+<span class="font-label-sm text-primary uppercase">Live analysis</span>
+</div>
+<div class="space-y-md">
+<!-- Iron Risk -->
+<div class="space-y-xs">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-on-surface font-bold">Iron Deficiency Risk</span>
+<span class="font-label-md text-error font-black">70%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-error h-3 rounded-full" style="width: 70%"></div>
+</div>
+<p class="font-label-sm text-on-surface-variant italic">Common symptoms: Fatigue, pale skin, cold hands.</p>
+</div>
+<!-- Protein Risk -->
+<div class="space-y-xs">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-on-surface font-bold">Protein Intake Efficiency</span>
+<span class="font-label-md text-on-surface-variant font-black">40% Gap</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-primary h-3 rounded-full" style="width: 40%"></div>
+</div>
+</div>
+<!-- Vitamin Risk -->
+<div class="space-y-xs">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-on-surface font-bold">Vitamin D Levels</span>
+<span class="font-label-md text-secondary font-black">25% Risk</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-3">
+<div class="bg-secondary h-3 rounded-full" style="width: 25%"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Recommendations Panel -->
+<section class="bg-primary-container rounded-[24px] p-md text-on-primary-container shadow-lg relative overflow-hidden">
+<!-- Background Decoration -->
+<div class="absolute -bottom-10 -right-10 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+<div class="flex items-start gap-md mb-md relative z-10">
+<div class="bg-white/20 p-sm rounded-xl backdrop-blur-md">
+<span class="material-symbols-outlined text-white text-[32px]">psychology</span>
+</div>
+<div>
+<h3 class="font-h3 text-h3">Intervention Plan</h3>
+<p class="text-white/80 font-body-md mt-xs">AI-driven dietary shifts based on your unique risk profile.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md relative z-10">
+<!-- Food Suggestions -->
+<div class="bg-white/10 rounded-xl p-md border border-white/20">
+<h4 class="font-label-sm uppercase tracking-widest text-white/70 mb-sm">Prioritized Foods</h4>
+<ul class="space-y-sm">
+<li class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="close up of fresh baby spinach leaves in a white ceramic bowl with soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI5b_HQBc2RSMg0M5b5sH48tvYX0KreLAhmp1egJw0ESlw3LYSLbAYfZbJWR6CB88x2jKIOjLyBcFWCy6UAb_oXgQWjrPJYQRRzNTa256LJ0UYGVdn4whSNsKuZTHpM_1UywQs7cejp-tMS8b3fgepbdO0PVPppAGKXzzOXCTnOr_yVuYYGCk68LsLqqnhFncV4E5SSunu9t8_sbtZ0765w7LctDzAjV6JUYZfo9ZhSGNf6kEr3ua0PEp5wej3A--RK5X3bE_F1_w"/>
+<span class="font-label-md">Fresh Spinach</span>
+</li>
+<li class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="macro shot of dried red and brown lentils mixed together on a wooden surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaKK0lmE-S0LTrLz_5HLQHJGxzkLcZvHIAzDwGnzGalvIUxcay9asXM3feaWcHnnea4ChWE5R7DAhHvvo9s0a5MnVj3Yo7MzqcC5giJiX35TQWVC8_MD1zHbceQlp2VCHXuf2JPkiN_gw_1ZNn3E7verJIMqhpV0ZhdquhQqdZsHCMf4kov5PBp5B6DaGZj4NQ98GVaOHiO9sWLQjC65hOoer9Axoh60pNEax8SE1XMz9e-xMbpR33RGp_b__bjUQmFa0QiYkHJ2c"/>
+<span class="font-label-md">Red Lentils</span>
+</li>
+<li class="flex items-center gap-sm">
+<img class="w-10 h-10 rounded-lg object-cover" data-alt="vibrant pink salmon fillet on a white plate with lemon wedges and rosemary garnish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRyEvMvpG8gWqeJvtQwxqREM1YWROEZvgiY7V27Jo5vDaq05htWOLQiVf9NnJ4hh6yESPVqpDwFZIz-gwNZZKMuKLJoD22eFUnTP7ioxDk8_JQm3Ic55WGBxskr1W5PzAbLEUsqwYIHE8k1TP3u5mQbuAD76nX1howJcpYma3qLhIxlNO9BXUK6cVbuhHWNyi_VfIJmPlo06HY9D2Q6MeKsQjOXp6b1pjyp_8V6-U_FdtzCxMXcegGbP6bcXGmq_JgFPYc6u0F4ho"/>
+<span class="font-label-md">Wild Salmon</span>
+</li>
+</ul>
+</div>
+<!-- Habit Changes -->
+<div class="flex flex-col gap-sm">
+<div class="p-sm bg-white/10 rounded-xl border border-white/20 flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary-container">brightness_low</span>
+<span class="font-label-md">15m direct morning sun exposure</span>
+</div>
+<div class="p-sm bg-white/10 rounded-xl border border-white/20 flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary-container">local_drink</span>
+<span class="font-label-md">Pair iron foods with Vitamin C</span>
+</div>
+<div class="p-sm bg-white/10 rounded-xl border border-white/20 flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary-container">bedtime</span>
+<span class="font-label-md">Increase sleep duration by 1hr</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Secondary Insights Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md mt-md">
+<div class="bg-white rounded-[24px] p-md border border-blue-50 shadow-[0px_4px_20px_rgba(25,118,210,0.04)]">
+<div class="flex items-center gap-sm mb-sm text-primary">
+<span class="material-symbols-outlined">trending_down</span>
+<h4 class="font-label-md uppercase font-bold">Risk Trend</h4>
+</div>
+<p class="font-body-md text-on-surface mb-md">Risk level has decreased by 12% compared to last month.</p>
+<div class="h-24 flex items-end gap-xs">
+<div class="flex-1 bg-surface-container rounded-t-lg h-full"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-4/5"></div>
+<div class="flex-1 bg-surface-container rounded-t-lg h-3/5"></div>
+<div class="flex-1 bg-primary rounded-t-lg h-2/5"></div>
+</div>
+</div>
+<div class="bg-white rounded-[24px] p-md border border-blue-50 shadow-[0px_4px_20px_rgba(25,118,210,0.04)]">
+<div class="flex items-center gap-sm mb-sm text-secondary">
+<span class="material-symbols-outlined">shield_moon</span>
+<h4 class="font-label-md uppercase font-bold">Shield Strength</h4>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative w-16 h-16 border-4 border-secondary/20 rounded-full flex items-center justify-center">
+<span class="font-h3 text-secondary">A+</span>
+</div>
+<div>
+<p class="font-body-md text-on-surface">Your biological resilience is exceptional despite gaps.</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-[24px] p-md border border-blue-50 shadow-[0px_4px_20px_rgba(25,118,210,0.04)] flex flex-col justify-center items-center gap-sm text-center">
+<h4 class="font-label-md text-on-surface-variant">Ready for more precision?</h4>
+<p class="font-body-md text-on-surface">Sync your blood markers for a 100% accurate profile.</p>
+<button class="text-primary font-bold text-sm underline underline-offset-4 hover:text-blue-800 transition-colors">Connect Lab Data</button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-slate-50 border-t border-slate-200">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto px-6 py-12 gap-6">
+<div class="flex flex-col gap-xs items-center md:items-start">
+<div class="text-lg font-bold text-blue-700">NutriPulse</div>
+<div class="text-xs font-normal text-slate-500">Â© 2024 NutriPulse. Clinical Precision meets Human Wellness.</div>
+</div>
+<div class="flex gap-md">
+<a class="text-xs font-normal text-slate-500 hover:text-blue-700 underline underline-offset-4 transition-opacity duration-150" href="#">Â© 2024 NutriPulse. Clinical Precision meets Human Wellness.</a>
+<a class="text-xs font-normal text-slate-500 hover:text-blue-700 underline underline-offset-4 transition-opacity duration-150" href="#">Â© 2024 NutriPulse. Clinical Precision meets Human Wellness.</a>
+<a class="text-xs font-normal text-slate-500 hover:text-blue-700 underline underline-offset-4 transition-opacity duration-150" href="#">Â© 2024 NutriPulse. Clinical Precision meets Human Wellness.</a>
+<a class="text-xs font-normal text-slate-500 hover:text-blue-700 underline underline-offset-4 transition-opacity duration-150" href="#">Â© 2024 NutriPulse. Clinical Precision meets Human Wellness.</a>
+<a class="text-xs font-normal text-slate-500 hover:text-blue-700 underline underline-offset-4 transition-opacity duration-150" href="#">Â© 2024 NutriPulse. Clinical Precision meets Human Wellness.</a>
+</div>
+</div>
+</footer>
+</body></html>

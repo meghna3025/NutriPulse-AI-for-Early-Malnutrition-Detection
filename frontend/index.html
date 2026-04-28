@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriShield | Malnutrition Risk Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Landing Page -->
+        <section id="landing-page" class="view">
+            <div class="container">
+                <nav class="navbar">
+                    <div class="logo">Nutri<span>Shield</span></div>
+                </nav>
+                <div class="hero">
+                    <h1>Clinical Precision. <br><span>Human Wellness.</span></h1>
+                    <p>AI-powered early malnutrition risk detection for a healthier tomorrow.</p>
+                    <button class="btn-primary" onclick="showView('assessment-form')">Start Risk Assessment</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessment Form -->
+        <section id="assessment-form" class="view hidden">
+            <div class="container">
+                <header class="view-header">
+                    <button class="btn-back" onclick="showView('landing-page')">← Back</button>
+                    <h2>Health Risk Assessment</h2>
+                </header>
+                
+                <form id="risk-form" class="card">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>User Category</label>
+                            <select name="userCategory" required>
+                                <option value="Adult">Adult</option>
+                                <option value="Child">Child</option>
+                                <option value="Pregnant">Pregnant</option>
+                                <option value="Elderly">Elderly</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Protein Intake Frequency</label>
+                            <select name="proteinIntakeFrequency" required>
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Rarely">Rarely</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Daily Food Habits</label>
+                            <textarea name="dailyFoodHabits" placeholder="e.g., Skip breakfast, mostly processed foods..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Reported Symptoms</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="reportedSymptoms" value="Fatigue"> Fatigue</label>
+                                <label><input type="checkbox" name="reportedSymptoms" value="Pale skin"> Pale skin</label>
+                                <label><input type="checkbox" name="reportedSymptoms" value="Hair loss"> Hair loss</label>
+                                <label><input type="checkbox" name="reportedSymptoms" value="Brittle nails"> Brittle nails</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Other Symptoms</label>
+                            <input type="text" name="otherSymptoms" placeholder="Comma separated...">
+                        </div>
+                        <div class="form-group">
+                            <label>Meal Frequency (per day)</label>
+                            <input type="number" name="mealFrequency" min="1" max="6" value="3" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Food Diversity Quality</label>
+                            <select name="foodDiversityQuality" required>
+                                <option value="High">High (Varied vegetables, grains, proteins)</option>
+                                <option value="Medium">Medium (Consistent but limited variety)</option>
+                                <option value="Low">Low (Monotonous diet)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="submit-btn" class="btn-primary">
+                            <span class="btn-text">Analyze Risk</span>
+                            <div class="spinner hidden"></div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="results-dashboard" class="view hidden">
+            <div class="container">
+                <header class="view-header">
+                    <h2>Analysis Results</h2>
+                    <button class="btn-secondary" onclick="showView('assessment-form')">New Assessment</button>
+                </header>
+
+                <div class="dashboard-grid">
+                    <!-- Main Score -->
+                    <div class="card score-card">
+                        <h3>Clinical Nutrition Index</h3>
+                        <div class="gauge-container">
+                            <div class="gauge">
+                                <div class="gauge-fill" id="risk-gauge-fill"></div>
+                                <div class="gauge-text">
+                                    <span id="risk-score">0</span>
+                                    <span class="score-total">/ 100</span>
+                                </div>
+                            </div>
+                            <div class="score-legend">Lower score = Healthier status</div>
+                        </div>
+                        <div class="status-badge" id="risk-category">Calculating...</div>
+                        <div class="risk-interpretation-banner" id="risk-interpretation">
+                            -
+                        </div>
+                        <div class="clinical-status" id="clinical-status">-</div>
+                    </div>
+
+                    <!-- Deficiencies -->
+                    <div class="card metrics-card">
+                        <h3>Biomarker Risk Analysis</h3>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <label>Iron Deficiency Risk</label>
+                                <span class="severity-label" id="iron-severity">-</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill" id="iron-fill" style="width: 0%"></div></div>
+                            <div class="clinical-explanation" id="iron-explanation"></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <label>Protein Intake Efficiency</label>
+                                <span class="severity-label" id="protein-severity">-</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill" id="protein-fill" style="width: 0%"></div></div>
+                            <div class="clinical-explanation" id="protein-explanation"></div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-header">
+                                <label>Vitamin Levels</label>
+                                <span class="severity-label" id="vitamin-severity">-</span>
+                            </div>
+                            <div class="progress-bar"><div class="fill" id="vitamin-fill" style="width: 0%"></div></div>
+                        </div>
+                        
+                        <!-- New: Micronutrients -->
+                        <div class="micronutrient-grid" id="micronutrient-grid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- New: Explainable AI Panel -->
+                    <div class="card xai-card">
+                        <h3>Why This Risk Was Flagged</h3>
+                        <p class="xai-subtitle">Primary clinical risk drivers detected:</p>
+                        <ul id="risk-drivers-list">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="card list-card">
+                        <h3>Prioritized Foods</h3>
+                        <ul id="priority-foods-list"></ul>
+                    </div>
+
+                    <!-- Categorized Intervention Plan -->
+                    <div class="card intervention-grid-card">
+                        <h3>Clinical Intervention Plan</h3>
+                        <div class="intervention-grid">
+                            <div class="intervention-section">
+                                <div class="section-header">
+                                    <span class="material-symbols-outlined">restaurant</span>
+                                    <h4>Dietary Actions</h4>
+                                </div>
+                                <ul id="dietary-actions-list"></ul>
+                            </div>
+                            <div class="intervention-section">
+                                <div class="section-header">
+                                    <span class="material-symbols-outlined">directions_run</span>
+                                    <h4>Lifestyle Actions</h4>
+                                </div>
+                                <ul id="lifestyle-actions-list"></ul>
+                            </div>
+                            <div class="intervention-section">
+                                <div class="section-header">
+                                    <span class="material-symbols-outlined">monitoring</span>
+                                    <h4>Monitoring Advice</h4>
+                                </div>
+                                <ul id="monitoring-advice-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insights -->
+                    <div class="insights-row">
+                        <div class="insight-card" data-type="Metabolism">
+                            <div class="label">Metabolism</div>
+                            <div class="value" id="insight-metabolism">-</div>
+                        </div>
+                        <div class="insight-card" data-type="Immunity">
+                            <div class="label">Immunity</div>
+                            <div class="value" id="insight-immunity">-</div>
+                        </div>
+                        <div class="insight-card" data-type="Energy">
+                            <div class="label">Energy</div>
+                            <div class="value" id="insight-energy">-</div>
+                        </div>
+                    </div>
+
+                    <!-- New: What-if Nutrition Simulator -->
+                    <div class="card simulator-card">
+                        <header class="simulator-header">
+                            <h3>What-if Nutrition Simulator</h3>
+                            <span class="forecast-badge">Preventive Forecasting</span>
+                        </header>
+                        <p class="simulator-subtitle">Projected health impact after following interventions:</p>
+                        
+                        <div class="simulator-grid">
+                            <!-- Score Comparison -->
+                            <div class="sim-score-box">
+                                <div class="sim-label">Current Risk</div>
+                                <div class="sim-value current" id="sim-current-score">0</div>
+                                <div class="sim-label">Projected Risk</div>
+                                <div class="sim-value projected" id="sim-projected-score">0</div>
+                            </div>
+
+                            <!-- Metric Improvements -->
+                            <div class="sim-metrics">
+                                <div class="sim-metric-item">
+                                    <label>Iron Risk Reduction</label>
+                                    <div class="sim-compare">
+                                        <span class="before" id="sim-iron-before">0%</span>
+                                        <span class="arrow">→</span>
+                                        <span class="after" id="sim-iron-after">0%</span>
+                                    </div>
+                                </div>
+                                <div class="sim-metric-item">
+                                    <label>Protein Efficiency Boost</label>
+                                    <div class="sim-compare">
+                                        <span class="before" id="sim-protein-before">0%</span>
+                                        <span class="arrow">→</span>
+                                        <span class="after" id="sim-protein-after">0%</span>
+                                    </div>
+                                </div>
+                                <div class="sim-metric-item">
+                                    <label>Vitamin Adequacy Lift</label>
+                                    <div class="sim-compare">
+                                        <span class="before" id="sim-vitamin-before">0%</span>
+                                        <span class="arrow">→</span>
+                                        <span class="after" id="sim-vitamin-after">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="simulator-insight" id="projection-summary">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
