@@ -74,7 +74,7 @@ riskForm.addEventListener('submit', async (e) => {
         const result = await response.json();
         
         // Save results and bind to dashboard
-        localStorage.setItem('nutrishield_results', JSON.stringify(result));
+        localStorage.setItem('nutripulse_results', JSON.stringify(result));
         bindDashboard(result);
         showView('results-dashboard');
 
@@ -246,9 +246,9 @@ function bindDashboard(data) {
 }
 
 // Initial state: check if we have data to show dashboard
-const savedResults = localStorage.getItem('nutrishield_results');
+const savedResults = localStorage.getItem('nutripulse_results');
 if (savedResults) {
     try {
-        bindDashboard(json.parse(savedResults));
+        bindDashboard(JSON.parse(savedResults));
     } catch(e) {}
 }

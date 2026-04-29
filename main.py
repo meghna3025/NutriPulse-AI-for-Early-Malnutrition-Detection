@@ -7,7 +7,7 @@ from typing import List, Dict, Any
 import json
 import os
 
-app = FastAPI(title="NutriShield Backend")
+app = FastAPI(title="NutriPulse Backend")
 
 # Enable CORS
 app.add_middleware(
