@@ -123,7 +123,7 @@ NutriShield aims to support:
 ---
 
 ## Demo
-(Add screenshots or demo link here)
+(https://nutripulse-825662706084.asia-south1.run.app/)
 
 ---
 
