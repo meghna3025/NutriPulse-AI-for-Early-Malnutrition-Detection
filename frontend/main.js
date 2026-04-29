@@ -13,6 +13,26 @@ const submitBtn = document.getElementById('submit-btn');
 const spinner = submitBtn.querySelector('.spinner');
 const btnText = submitBtn.querySelector('.btn-text');
 
+// Dropdown Helper Text Logic
+const foodDiversitySelect = document.getElementById('food-diversity-select');
+const foodDiversityHelper = document.getElementById('food-diversity-helper');
+
+const diversityDescriptions = {
+    'High': 'Varied vegetables, grains, and diverse protein sources.',
+    'Medium': 'Consistent meals but with limited variety in food groups.',
+    'Low': 'Monotonous diet with very few food types represented.'
+};
+
+const updateHelperText = () => {
+    const value = foodDiversitySelect.value;
+    foodDiversityHelper.textContent = diversityDescriptions[value] || '';
+};
+
+if (foodDiversitySelect) {
+    foodDiversitySelect.addEventListener('change', updateHelperText);
+    updateHelperText(); // Initial call
+}
+
 riskForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
