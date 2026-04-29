@@ -1,16 +1,24 @@
-# NutriShield 🛡️  
+# NutriPulse 🛡️  
 ### AI-Powered Early Malnutrition Risk Detection & Intervention Platform
 
-NutriShield is an AI-powered nutrition intelligence platform that detects hidden malnutrition risks early using diet patterns, symptoms, biomarker-style reasoning, and vulnerability analysis.
+## Live Demo
+🔗 App: https://nutripulse-825662706084.asia-south1.run.app  
+📘 API Docs: https://nutripulse-825662706084.asia-south1.run.app/docs
 
-Rather than reacting after health decline, NutriShield focuses on **preventive nutrition intelligence** by identifying risk, explaining why it is flagged, and simulating how interventions can reduce future nutritional risk.
+---
+
+## Overview
+NutriPulse is an AI-powered nutrition intelligence platform that detects hidden malnutrition risks early using diet patterns, symptom signals, biomarker-style reasoning, and vulnerability analysis.
+
+Rather than reacting after health decline, NutriPulse focuses on **preventive nutrition intelligence** by identifying risk, explaining why it is flagged, and simulating how interventions can reduce future nutritional risk.
 
 ---
 
 ## Problem Statement
-Hidden nutritional deficiencies such as iron, protein and micronutrient gaps often go undetected until they become health issues.
+Hidden nutritional deficiencies such as iron, protein and micronutrient gaps often go undetected until they become major health issues.
 
-NutriShield addresses this by providing:
+NutriPulse addresses this by providing:
+
 - Early risk screening  
 - Explainable AI-driven deficiency reasoning  
 - Personalized food interventions  
@@ -22,34 +30,41 @@ NutriShield addresses this by providing:
 
 ### Clinical Nutrition Index
 - Dynamic nutrition risk scoring  
-- Low / Moderate / High risk categorization
+- Low / Moderate / High risk categorization  
+- Clinical-style severity visualization
 
 ### Biomarker Risk Analysis
-- Iron Deficiency Risk
-- Protein Intake Efficiency
-- Vitamin Adequacy Analysis
+- Iron Deficiency Risk  
+- Protein Intake Efficiency  
+- Vitamin Adequacy Analysis  
 
-Dynamic severity bars use risk-based visualization and color coding.
+Dynamic severity bars use risk-based visualization and color coding:
+- Green → Low risk  
+- Amber → Moderate risk  
+- Red → High risk
 
 ---
 
 ## Explainable AI Risk Drivers
-The platform explains **why** a user was flagged by showing major contributing factors such as:
+The system explains **why** a user was flagged through major contributing factors such as:
+
 - Low protein intake  
 - Low food diversity  
-- Symptom-driven risk signals
+- Symptom-driven deficiency signals  
+- Vulnerability indicators
 
 ---
 
 ## Personalized Intervention Planning
-Provides actionable interventions across:
+Provides actionable recommendations across:
+
 - Dietary Actions  
 - Lifestyle Actions  
 - Monitoring Advice
 
 Examples:
-- Increase protein intake
-- Improve iron absorption pairing
+- Increase protein intake  
+- Improve iron absorption pairing  
 - Support Vitamin D through sunlight exposure
 
 ---
@@ -58,38 +73,55 @@ Examples:
 Simulates projected improvement in nutrition risk if recommended interventions are followed.
 
 Example:
+
 Current Risk → Projected Reduced Risk
 
-This adds preventive forecasting to screening.
+Adds preventive forecasting beyond static screening.
+
+---
+
+## Architecture
+Frontend (React + Stitch)  
+↓  
+FastAPI Risk Engine  
+↓  
+Multi-Factor Nutrition Inference Layer  
+↓  
+Explainable Intervention Engine  
+↓  
+Google Cloud Run Deployment
 
 ---
 
 ## Tech Stack
-- Stitch (Frontend UI)
-- Antigravity (Prompt-driven backend workflow)
-- FastAPI
-- Next.js / React
-- Python
+- Stitch (Frontend UI)  
+- Antigravity (Prompt-driven backend workflow)  
+- FastAPI  
+- React / Vite  
+- Python  
+- Docker  
+- Google Cloud Run
 
 ---
 
 ## How It Works
-1. User enters:
-- Food habits
-- Symptoms
-- Meal patterns
-- Food diversity
+### User Inputs
+Users provide:
+- Food habits  
+- Symptoms  
+- Meal frequency  
+- Food diversity indicators
 
-2. Multi-agent backend analyzes:
-- Diet risk
-- Deficiency signals
-- Vulnerability risk
+### AI Risk Pipeline Analyzes
+- Diet risk  
+- Deficiency signals  
+- Vulnerability risk  
 - Intervention planning
 
-3. Dashboard returns:
-- Risk score
-- Biomarker analysis
-- Explainable AI insights
+### Dashboard Returns
+- Risk score  
+- Biomarker analysis  
+- Explainable AI insights  
 - Personalized recommendations
 
 ---
@@ -109,28 +141,36 @@ npm run dev
 
 Open:
 
+```text
 http://localhost:3000
+```
+
+---
+
+## Cloud Deployment
+Deployed using **Google Cloud Run** with Dockerized full-stack deployment.
+
+Public deployment:
+
+https://nutripulse-825662706084.asia-south1.run.app
 
 ---
 
 ## Impact
-NutriShield aims to support:
-- Preventive healthcare
-- Early malnutrition detection
-- Food-based intervention support
+NutriPulse aims to support:
+
+- Preventive healthcare  
+- Early malnutrition detection  
+- Food-based intervention support  
 - Nutrition intelligence for at-risk populations
-
----
-
-## Demo
-(https://nutripulse-825662706084.asia-south1.run.app/)
 
 ---
 
 ## Future Improvements
 - Community nutrition risk heatmaps  
 - Rural health worker screening mode  
-- Longitudinal nutrition monitoring
+- Longitudinal nutrition monitoring  
+- Population-level nutrition surveillance
 
 ---
 
