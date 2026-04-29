@@ -333,21 +333,24 @@ async def analyze_risk(request: AnalysisRequest):
 
 
 # Serve frontend static files
-frontend_path = os.path.join(os.getcwd(), "frontend", "dist")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+frontend_path = os.path.join(BASE_DIR, "frontend", "dist")
 
 if os.path.exists(frontend_path):
     # Serve static assets (js, css, etc.)
-    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
+    assets_path = os.path.join(frontend_path, "assets")
+    if os.path.exists(assets_path):
+        app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
 
     # Serve index.html and other root files
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
-        # 1. Try to serve specific file from dist (e.g., favicon.ico, style.css)
+        # 1. Try to serve specific file from dist
         file_path = os.path.join(frontend_path, full_path)
         if full_path and os.path.isfile(file_path):
             return FileResponse(file_path)
         
-        # 2. Default to index.html for root or any other path (SPA support)
+        # 2. Default to index.html (SPA support)
         index_path = os.path.join(frontend_path, "index.html")
         if os.path.isfile(index_path):
             return FileResponse(index_path)

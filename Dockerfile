@@ -17,12 +17,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy backend code
 COPY main.py .
 
-# Copy built frontend from Stage 1
+# Copy built frontend from Stage 1 (Vite uses 'dist')
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
-# Expose port (Cloud Run sets PORT env var, but we'll use 8080 as default)
-ENV PORT=8080
+# Expose port (Cloud Run sets PORT env var)
 EXPOSE 8080
 
-# Command to run the application
-CMD ["python", "main.py"]
+# Production startup command using uvicorn
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}"]
