@@ -1,8 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Dict, Any
 import json
+import os
 
 app = FastAPI(title="NutriShield Backend")
 
@@ -328,6 +331,35 @@ async def analyze_risk(request: AnalysisRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
+# Serve frontend static files
+frontend_path = os.path.join(os.getcwd(), "frontend", "dist")
+
+if os.path.exists(frontend_path):
+    # Serve static assets (js, css, etc.)
+    app.mount("/assets", StaticFiles(directory=os.path.join(frontend_path, "assets")), name="assets")
+
+    # Serve index.html and other root files
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        # 1. Try to serve specific file from dist (e.g., favicon.ico, style.css)
+        file_path = os.path.join(frontend_path, full_path)
+        if full_path and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        
+        # 2. Default to index.html for root or any other path (SPA support)
+        index_path = os.path.join(frontend_path, "index.html")
+        if os.path.isfile(index_path):
+            return FileResponse(index_path)
+        
+        return {"detail": "Frontend assets not found. Please build the frontend."}
+else:
+    @app.get("/")
+    async def root_warning():
+        return {"detail": "Frontend not found at frontend/dist. Please run 'npm run build' in the frontend directory."}
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Use port from environment variable for Google Cloud Run
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
